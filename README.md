@@ -10,29 +10,29 @@ This tool could help players or even AI agents choose optimal strategies based o
 
 ## Theoretical Model
 
-We first let the dartboard be defined my specific curves on $\mathbb{R^2}$.
+We first let the dartboard be defined my specific curves on $\mathbb{R}^2$.
 
-We assume that when a player shoots, they aim at a specific spot say $\bold{p} \in \mathbb{R^2}$.
+We assume that when a player shoots, they aim at a specific spot say $\mathbf{p} \in \mathbb{R}^2$.
 
-Then we assume that where the dart lands is normally distributed around this point $\bold{p}$ with some standard deviation $\sigma$ whose value will depend on how good the player is. That is to say that, the position of landing $X(\bold{p}, \sigma) \sim N_2(\bold{p}, \sigma^2 I)$.
+Then we assume that where the dart lands is normally distributed around this point $\mathbf{p}$ with some standard deviation $\sigma$ whose value will depend on how good the player is. That is to say that, the position of landing $X(\mathbf{p}, \sigma) \sim N_2(\mathbf{p}, \sigma^2 I)$.
 
-Now if we let $s: \mathbb{R^2} \rightarrow \mathbb{R}$ be the function which maps each spot on the dartboard (and outside it) to the amount of points awarded for landing there, we seek to investigate the random variable $$S(\bold{p}, \sigma) = s(X(\bold{p}, \sigma)).$$
+Now if we let $s: \mathbb{R}^2 \rightarrow \mathbb{R}$ be the function which maps each spot on the dartboard (and outside it) to the amount of points awarded for landing there, we seek to investigate the random variable $$S(\mathbf{p}, \sigma) = s(X(\mathbf{p}, \sigma)).$$
 
 ## Expected Value under Theoretical Model
 
-Let $R_1, R_2, ..., R_N$ be disjoint regions of $\mathbb{R^2}$ that each represent distinct sections of the dartboard (with one being the external region of the dartboard) with corresponding scores $v_1, v_2, ..., v_N$.
+Let $R_1, R_2, ..., R_N$ be disjoint regions of $\mathbb{R}^2$ that each represent distinct sections of the dartboard (with one being the external region of the dartboard) with corresponding scores $v_1, v_2, ..., v_N$.
 
 That is to say that for all $(x, y) \in R_i$, $s((x,y)) = v_i$.
 
-Let $X(\bold{p}, \sigma)$ have pdf $f_X$.
+Let $X(\mathbf{p}, \sigma)$ have pdf $f_X$.
 
 Then the expected value has the form
 
 
 $$
 \begin{align*}
-\mathbb{E}[S(\bold{p}, \sigma)] &= \mathbb{E}[s(X(\bold{p}, \sigma))]\\
-  &= \iint\limits_\mathbb{R^2} s(x,y) \cdot f_X(x,y) \, dA\\
+\mathbb{E}[S(\mathbf{p}, \sigma)] &= \mathbb{E}[s(X(\mathbf{p}, \sigma))]\\
+  &= \iint\limits_{\mathbb{R}^2} s(x,y) \cdot f_X(x,y) \, dA\\
   &= \iint\limits_{\bigcup_{i=1}^{N} R_i} s(x,y) \cdot f_X(x,y) \, dA \\
   &= \sum_{i=1}^{N} \iint\limits_{R_i} s(x,y) \cdot f_X(x,y) \, dA \\
   &= \sum_{i=1}^{N} v_i \iint\limits_{R_i} f_X(x,y) \, dA \\
@@ -46,7 +46,7 @@ So this means that our problem simplifies does to computing the probability $P(R
 
 ### Probability of Landing in a Given Region
 
-Based on our assumption we have that $$f_X(\bold{x}) = \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\bold{x} - \bold{p}|^2}{2\sigma^2} \right)$$
+Based on our assumption we have that $$f_X(\mathbf{x}) = \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\mathbf{x} - \mathbf{p}|^2}{2\sigma^2} \right)$$
 
 Then the probability the dart lands in our region $R$ is
 $P(R) = \iint\limits_R f_X(x, y) \, dx\,dy$.
@@ -71,45 +71,45 @@ $$
 
 Then our problem becomes just trying to compute this integral over some generalised triangular domain T to compute the probability of the dart landing in it:
 
-$I = \iint\limits_{T} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\bold{x} - \bold{p}|^2}{2\sigma^2} \right) \, dx\,dy$
+$I = \iint\limits_{T} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\mathbf{x} - \mathbf{p}|^2}{2\sigma^2} \right) \, dx\,dy$
 
 ### Probability of Hitting a Given Triangle
-Let this triangle $T$ have vertices $\bold{t_1}, \bold{t_2}, \bold{t_3} \in \mathbb{R^2}$.
+Let this triangle $T$ have vertices $\mathbf{t_1}, \mathbf{t_2}, \mathbf{t_3} \in \mathbb{R}^2$.
 
 Now we want to find some linear transformation that maps $T$ to the standard triangle $Q = \{(0,0), (1,0), (1,1)\}$, so that we can do a change of variables.
 
-So we are looking for some matrix $M \in \mathbb{M_{2,2}}$ and $\bold{b} \in \mathbb{R^2}$ such that
+So we are looking for some matrix $M \in \mathbb{M}_{2,2}$ and $\mathbf{b} \in \mathbb{R}^2$ such that
 
-$W(\bold{x}) = M \bold{x} + \bold{b}$ has the properties:
+$W(\mathbf{x}) = M \mathbf{x} + \mathbf{b}$ has the properties:
 
-- $W(\bold{t_1}) = (0,0)$
-- $W(\bold{t_2}) = (1,0)$
-- $W(\bold{t_3}) = (1,1)$
+- $W(\mathbf{t_1}) = (0,0)$
+- $W(\mathbf{t_2}) = (1,0)$
+- $W(\mathbf{t_3}) = (1,1)$
 
-First note that whenever $M$ is not invertible, it is equivalent to saying the image of $Mx + b$ on $\mathbb{R^2}$ is a straight line. This only happens when the triangle $T$ is degenerate (with area 0) meaning that this integral will be 0 anways. So we will proceed assuming $M$ is invertible.
+First note that whenever $M$ is not invertible, it is equivalent to saying the image of $Mx + b$ on $\mathbb{R}^2$ is a straight line. This only happens when the triangle $T$ is degenerate (with area 0) meaning that this integral will be 0 anways. So we will proceed assuming $M$ is invertible.
 
 So
 $$
 \begin{align}
-\begin{pmatrix} 0 \\ 0 \end{pmatrix} &= M \bold{t_1} + \bold{b} \\
-\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= M \bold{t_2} + \bold{b} \\
-\begin{pmatrix} 1 \\ 1 \end{pmatrix} &= M \bold{t_3} + \bold{b}
+\begin{pmatrix} 0 \\ 0 \end{pmatrix} &= M \mathbf{t_1} + \mathbf{b} \\
+\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= M \mathbf{t_2} + \mathbf{b} \\
+\begin{pmatrix} 1 \\ 1 \end{pmatrix} &= M \mathbf{t_3} + \mathbf{b}
 \end{align}
 $$
 
 From (2) - (1) and (3) - (2), we get:
 $$
 \begin{align*}
-\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= M (\bold{t_2} - \bold{t_1}) \\
-\begin{pmatrix} 0 \\ 1 \end{pmatrix} &= M (\bold{t_3} - \bold{t_2}) \\
+\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= M (\mathbf{t_2} - \mathbf{t_1}) \\
+\begin{pmatrix} 0 \\ 1 \end{pmatrix} &= M (\mathbf{t_3} - \mathbf{t_2}) \\
 \end{align*}
 $$
 
 and thus
 $$
 \begin{align*}
-M^{-1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= \bold{t_2} - \bold{t_1} \\
-M^{-1}\begin{pmatrix} 0 \\ 1 \end{pmatrix} &= \bold{t_3} - \bold{t_2}. \\
+M^{-1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= \mathbf{t_2} - \mathbf{t_1} \\
+M^{-1}\begin{pmatrix} 0 \\ 1 \end{pmatrix} &= \mathbf{t_3} - \mathbf{t_2}. \\
 \end{align*}
 $$
 
@@ -117,23 +117,23 @@ Now
 $$
 \begin{align*}
     M^{-1} &= (M^{-1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} | M^{-1}\begin{pmatrix} 0 \\ 1 \end{pmatrix}) \\
-    &= (\bold{t_2} - \bold{t_1} | \bold{t_3} - \bold{t_2})
+    &= (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})
 \end{align*}
 $$
 
-So $M = (\bold{t_2} - \bold{t_1} | \bold{t_3} - \bold{t_2})^{-1}$ and $\bold{b} = -M\bold{t_1}$.
+So $M = (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})^{-1}$ and $\mathbf{b} = -M\mathbf{t_1}$.
 
 
-Observe that $\bold{x} = M W^{-1}(\bold{x}) + b$ and so
+Observe that $\mathbf{x} = M W^{-1}(\mathbf{x}) + b$ and so
 $$
 \begin{align*}
-    W^{-1}(\bold{x}) &= M^{-1}(\bold{x} - \bold{b}) \\
-    &= M^{-1}(\bold{x} + M\bold{t_1}) \\
-    &= \bold{t_1} + M^{-1}\bold{x}.
+    W^{-1}(\mathbf{x}) &= M^{-1}(\mathbf{x} - \mathbf{b}) \\
+    &= M^{-1}(\mathbf{x} + M\mathbf{t_1}) \\
+    &= \mathbf{t_1} + M^{-1}\mathbf{x}.
 \end{align*}
 $$
 
-This means that the jacobian $JW^{-1} = M^{-1} = (\bold{t_2} - \bold{t_1} | \bold{t_3} - \bold{t_2})$. Let $V = |\text{det}(JW^{-1})| = |\text{det}(\bold{t_2} - \bold{t_1} | \bold{t_3} - \bold{t_2})|$ which is some fixed constant.
+This means that the jacobian $JW^{-1} = M^{-1} = (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})$. Let $V = |\text{det}(JW^{-1})| = |\text{det}(\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})|$ which is some fixed constant.
 
 Since $W$ maps $T$ to $Q$, and is injective, continuous and differentiable we can use the change of variables formula to get
 
@@ -141,12 +141,12 @@ $$
 \begin{align*}
     I &= \iint\limits_{T} f_X(x,y) \, dx\,dy \\
     &= \iint\limits_{Q} f_X \circ W^{-1}(u,v) \cdot |\text{det}(JW^{-1})|\, dv\,du \\
-    &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|W^{-1}(u, v) - \bold{p}|^2}{2\sigma^2} \right)\, dv\,du \\
-    &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\bold{t_1} + M^{-1}\begin{pmatrix} u \\ v \end{pmatrix} - \bold{p}|^2}{2\sigma^2} \right)\, dv\,du.
+    &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|W^{-1}(u, v) - \mathbf{p}|^2}{2\sigma^2} \right)\, dv\,du \\
+    &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\mathbf{t_1} + M^{-1}\begin{pmatrix} u \\ v \end{pmatrix} - \mathbf{p}|^2}{2\sigma^2} \right)\, dv\,du.
 \end{align*}
 $$
 
-Then we can find constants $A, B, C, D, E, F$ such that $$\bold{t_1} + M^{-1}\begin{pmatrix} u \\ v \end{pmatrix} - \bold{p} = \begin{pmatrix} Au + Bv + C \\ Du + Ev + F \end{pmatrix}.$$
+Then we can find constants $A, B, C, D, E, F$ such that $$\mathbf{t_1} + M^{-1}\begin{pmatrix} u \\ v \end{pmatrix} - \mathbf{p} = \begin{pmatrix} Au + Bv + C \\ Du + Ev + F \end{pmatrix}.$$
 
 So we get
 
@@ -204,7 +204,7 @@ and processed to compute the value of $P(R_i)$, the probability of landing on a 
 Finally we can get
 $$
 \begin{align*}
-\mathbb{E}[S(\bold{p}, \sigma)] &= \sum_{i=1}^{N} v_i \cdot P(R_i).\\
+\mathbb{E}[S(\mathbf{p}, \sigma)] &= \sum_{i=1}^{N} v_i \cdot P(R_i).\\
 \end{align*}
 $$
 
@@ -328,7 +328,7 @@ This reveals that if the standard deviation of your shot is less than 40.9mm you
 
 Lets assume that you went to a dartboard and aimed directly at the center bullseye. We will aim to find your true value of $\sigma$ using the maximum likelihood estimator method.
 
-Suppose that we took $n$ separate shots independantly $(X_1, Y_1), (X_2, Y_2), ..., (X_n, Y_n) \sim_\text{iid} N_2(\bold{p}, \sigma^2 I)$ (i.e independant and identically distributed).
+Suppose that we took $n$ separate shots independantly $(X_1, Y_1), (X_2, Y_2), ..., (X_n, Y_n) \sim_\text{iid} N_2(\mathbf{p}, \sigma^2 I)$ (i.e independant and identically distributed).
 
 The likelihood function for $\sigma$ based on these throws is given by
 
