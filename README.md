@@ -89,48 +89,52 @@ $W(\mathbf{x}) = M \mathbf{x} + \mathbf{b}$ has the properties:
 First note that whenever $M$ is not invertible, it is equivalent to saying the image of $Mx + b$ on $\mathbb{R}^2$ is a straight line. This only happens when the triangle $T$ is degenerate (with area 0) meaning that this integral will be 0 anways. So we will proceed assuming $M$ is invertible.
 
 So
+
 $$
-\begin{aligned}
-\begin{pmatrix} 0 \\ 0 \end{pmatrix} &= M \mathbf{t_1} + \mathbf{b} \\
-\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= M \mathbf{t_2} + \mathbf{b} \\
-\begin{pmatrix} 1 \\ 1 \end{pmatrix} &= M \mathbf{t_3} + \mathbf{b}
-\end{aligned}
+(0, 0)^T = M \mathbf{t_1} + \mathbf{b}
+$$
+
+$$
+(1, 0)^T = M \mathbf{t_2} + \mathbf{b}
+$$
+
+$$
+(1, 1)^T = M \mathbf{t_3} + \mathbf{b}
 $$
 
 From (2) - (1) and (3) - (2), we get:
+
 $$
-\begin{aligned}
-\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= M (\mathbf{t_2} - \mathbf{t_1}) \\
-\begin{pmatrix} 0 \\ 1 \end{pmatrix} &= M (\mathbf{t_3} - \mathbf{t_2}) \\
-\end{aligned}
+(1, 0)^T = M (\mathbf{t_2} - \mathbf{t_1})
+$$
+
+$$
+(0, 1)^T = M (\mathbf{t_3} - \mathbf{t_2})
 $$
 
 and thus
+
 $$
-\begin{aligned}
-M^{-1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= \mathbf{t_2} - \mathbf{t_1} \\
-M^{-1}\begin{pmatrix} 0 \\ 1 \end{pmatrix} &= \mathbf{t_3} - \mathbf{t_2}. \\
-\end{aligned}
+M^{-1}(1, 0)^T = \mathbf{t_2} - \mathbf{t_1}
+$$
+
+$$
+M^{-1}(0, 1)^T = \mathbf{t_3} - \mathbf{t_2}
 $$
 
 Now
+
 $$
-\begin{aligned}
-    M^{-1} &= (M^{-1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} | M^{-1}\begin{pmatrix} 0 \\ 1 \end{pmatrix}) \\
-    &= (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})
-\end{aligned}
+M^{-1} = (M^{-1}(1, 0)^T \mid M^{-1}(0, 1)^T) = (\mathbf{t_2} - \mathbf{t_1} \mid \mathbf{t_3} - \mathbf{t_2})
 $$
 
 So $M = (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})^{-1}$ and $\mathbf{b} = -M\mathbf{t_1}$.
 
 
 Observe that $\mathbf{x} = M W^{-1}(\mathbf{x}) + b$ and so
+
 $$
-\begin{aligned}
-    W^{-1}(\mathbf{x}) &= M^{-1}(\mathbf{x} - \mathbf{b}) \\
-    &= M^{-1}(\mathbf{x} + M\mathbf{t_1}) \\
-    &= \mathbf{t_1} + M^{-1}\mathbf{x}.
-\end{aligned}
+W^{-1}(\mathbf{x}) = M^{-1}(\mathbf{x} - \mathbf{b}) = M^{-1}(\mathbf{x} + M\mathbf{t_1}) = \mathbf{t_1} + M^{-1}\mathbf{x}
 $$
 
 This means that the jacobian $JW^{-1} = M^{-1} = (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})$. Let $V = |\text{det}(JW^{-1})| = |\text{det}(\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})|$ which is some fixed constant.
@@ -142,11 +146,15 @@ $$
     I &= \iint\limits_{T} f_X(x,y) \, dx\,dy \\
     &= \iint\limits_{Q} f_X \circ W^{-1}(u,v) \cdot |\text{det}(JW^{-1})|\, dv\,du \\
     &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|W^{-1}(u, v) - \mathbf{p}|^2}{2\sigma^2} \right)\, dv\,du \\
-    &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\mathbf{t_1} + M^{-1}\begin{pmatrix} u \\ v \end{pmatrix} - \mathbf{p}|^2}{2\sigma^2} \right)\, dv\,du.
+    &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\mathbf{t_1} + M^{-1}(u, v)^T - \mathbf{p}|^2}{2\sigma^2} \right)\, dv\,du
 \end{aligned}
 $$
 
-Then we can find constants $A, B, C, D, E, F$ such that $$\mathbf{t_1} + M^{-1}\begin{pmatrix} u \\ v \end{pmatrix} - \mathbf{p} = \begin{pmatrix} Au + Bv + C \\ Du + Ev + F \end{pmatrix}.$$
+Then we can find constants $A, B, C, D, E, F$ such that
+
+$$
+\mathbf{t_1} + M^{-1}(u, v)^T - \mathbf{p} = (Au + Bv + C, Du + Ev + F)^T
+$$
 
 So we get
 
@@ -202,10 +210,9 @@ $$P(R_i) \approx \sum_{j=1}^{k} P(\text{dart lands on triangle }T_j).$$
 and processed to compute the value of $P(R_i)$, the probability of landing on a given region $R$.
 
 Finally we can get
+
 $$
-\begin{aligned}
-\mathbb{E}[S(\mathbf{p}, \sigma)] &= \sum_{i=1}^{N} v_i \cdot P(R_i).\\
-\end{aligned}
+\mathbb{E}[S(\mathbf{p}, \sigma)] = \sum_{i=1}^{N} v_i \cdot P(R_i)
 $$
 
 ## Implementation of Model
