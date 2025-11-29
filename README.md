@@ -30,14 +30,14 @@ Then the expected value has the form
 
 
 $$
-\begin{align*}
+\begin{aligned}
 \mathbb{E}[S(\mathbf{p}, \sigma)] &= \mathbb{E}[s(X(\mathbf{p}, \sigma))]\\
   &= \iint\limits_{\mathbb{R}^2} s(x,y) \cdot f_X(x,y) \, dA\\
   &= \iint\limits_{\bigcup_{i=1}^{N} R_i} s(x,y) \cdot f_X(x,y) \, dA \\
   &= \sum_{i=1}^{N} \iint\limits_{R_i} s(x,y) \cdot f_X(x,y) \, dA \\
   &= \sum_{i=1}^{N} v_i \iint\limits_{R_i} f_X(x,y) \, dA \\
   &= \sum_{i=1}^{N} v_i \cdot P(\text{dart lands in }R_i).
-\end{align*}
+\end{aligned}
 $$
 
 This should hopefully be intuitive. If we have a 60%, 20% and 10% chance of being in the 10pt, 20pt and 40pt regions respecfively, the expected value should just be 10 * 0.6 + 20 * 0.2 + 40 * 0.1 = 14.
@@ -60,13 +60,13 @@ Figure 1: contour approximation of a curved region.
 Then we can appriximate the probability of hitting a region by
 
 $$
-\begin{align*}
+\begin{aligned}
 P(R) &= \iint\limits_R f_X(x, y) \, dx\,dy \\
   &\approx \iint\limits_\Gamma f_X(x, y) \, dx\,dy \\
   &= \iint\limits_{\bigcup_{j=1}^{k} T_j} f_X(x, y) \, dx\,dy \\
   &= \sum_{j=1}^{k} \iint\limits_{T_j} f_X(x, y) \, dx\,dy \\
   &= \sum_{j=1}^{k} P(\text{dart lands on triangle }T_j).
-\end{align*}
+\end{aligned}
 $$
 
 Then our problem becomes just trying to compute this integral over some generalised triangular domain T to compute the probability of the dart landing in it:
@@ -90,35 +90,35 @@ First note that whenever $M$ is not invertible, it is equivalent to saying the i
 
 So
 $$
-\begin{align}
+\begin{aligned}
 \begin{pmatrix} 0 \\ 0 \end{pmatrix} &= M \mathbf{t_1} + \mathbf{b} \\
 \begin{pmatrix} 1 \\ 0 \end{pmatrix} &= M \mathbf{t_2} + \mathbf{b} \\
 \begin{pmatrix} 1 \\ 1 \end{pmatrix} &= M \mathbf{t_3} + \mathbf{b}
-\end{align}
+\end{aligned}
 $$
 
 From (2) - (1) and (3) - (2), we get:
 $$
-\begin{align*}
+\begin{aligned}
 \begin{pmatrix} 1 \\ 0 \end{pmatrix} &= M (\mathbf{t_2} - \mathbf{t_1}) \\
 \begin{pmatrix} 0 \\ 1 \end{pmatrix} &= M (\mathbf{t_3} - \mathbf{t_2}) \\
-\end{align*}
+\end{aligned}
 $$
 
 and thus
 $$
-\begin{align*}
+\begin{aligned}
 M^{-1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} &= \mathbf{t_2} - \mathbf{t_1} \\
 M^{-1}\begin{pmatrix} 0 \\ 1 \end{pmatrix} &= \mathbf{t_3} - \mathbf{t_2}. \\
-\end{align*}
+\end{aligned}
 $$
 
 Now
 $$
-\begin{align*}
+\begin{aligned}
     M^{-1} &= (M^{-1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} | M^{-1}\begin{pmatrix} 0 \\ 1 \end{pmatrix}) \\
     &= (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})
-\end{align*}
+\end{aligned}
 $$
 
 So $M = (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})^{-1}$ and $\mathbf{b} = -M\mathbf{t_1}$.
@@ -126,11 +126,11 @@ So $M = (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})^{-1}$ and $\
 
 Observe that $\mathbf{x} = M W^{-1}(\mathbf{x}) + b$ and so
 $$
-\begin{align*}
+\begin{aligned}
     W^{-1}(\mathbf{x}) &= M^{-1}(\mathbf{x} - \mathbf{b}) \\
     &= M^{-1}(\mathbf{x} + M\mathbf{t_1}) \\
     &= \mathbf{t_1} + M^{-1}\mathbf{x}.
-\end{align*}
+\end{aligned}
 $$
 
 This means that the jacobian $JW^{-1} = M^{-1} = (\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})$. Let $V = |\text{det}(JW^{-1})| = |\text{det}(\mathbf{t_2} - \mathbf{t_1} | \mathbf{t_3} - \mathbf{t_2})|$ which is some fixed constant.
@@ -138,12 +138,12 @@ This means that the jacobian $JW^{-1} = M^{-1} = (\mathbf{t_2} - \mathbf{t_1} | 
 Since $W$ maps $T$ to $Q$, and is injective, continuous and differentiable we can use the change of variables formula to get
 
 $$
-\begin{align*}
+\begin{aligned}
     I &= \iint\limits_{T} f_X(x,y) \, dx\,dy \\
     &= \iint\limits_{Q} f_X \circ W^{-1}(u,v) \cdot |\text{det}(JW^{-1})|\, dv\,du \\
     &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|W^{-1}(u, v) - \mathbf{p}|^2}{2\sigma^2} \right)\, dv\,du \\
     &= V \iint\limits_{Q} \frac{1}{2 \pi \sigma^2} \exp\left( -\frac{|\mathbf{t_1} + M^{-1}\begin{pmatrix} u \\ v \end{pmatrix} - \mathbf{p}|^2}{2\sigma^2} \right)\, dv\,du.
-\end{align*}
+\end{aligned}
 $$
 
 Then we can find constants $A, B, C, D, E, F$ such that $$\mathbf{t_1} + M^{-1}\begin{pmatrix} u \\ v \end{pmatrix} - \mathbf{p} = \begin{pmatrix} Au + Bv + C \\ Du + Ev + F \end{pmatrix}.$$
@@ -151,9 +151,9 @@ Then we can find constants $A, B, C, D, E, F$ such that $$\mathbf{t_1} + M^{-1}\
 So we get
 
 $$
-\begin{align*}
+\begin{aligned}
     I &= \frac{V}{2 \pi \sigma^2} \iint\limits_{Q} \exp\left( -\frac{(Au+Bv+C)^2+(Du+Ev+F)^2}{2\sigma^2} \right)\, dv\,du.
-\end{align*}
+\end{aligned}
 $$
 
 ![image](./other/Q_region.png)
@@ -177,13 +177,13 @@ Note that the formulas for $G$ and $H$ are not valid when $T=0$ but this wont ma
 This gives us
 
 $$
-\begin{align*}
+\begin{aligned}
     I &= \frac{V}{2 \pi \sigma^2} \int_{0}^{1} \int_{0}^{u} \exp\left( -\frac{T(v + Gu + H)^2 + Ju^2 + Ku + L}{2\sigma^2} \right)\, dv\,du \\
     &= \frac{V}{2 \pi \sigma^2} \int_{0}^{1} \exp\left( -\frac{Ju^2 + Ku + L}{2\sigma^2} \right) \int_{0}^{u} \exp\left( -\frac{T(v + Gu + H)^2}{2\sigma^2} \right)\, dv\,du \\
     &= \frac{V}{2 \pi \sigma^2} \int_{0}^{1} \exp\left( -\frac{Ju^2 + Ku + L}{2\sigma^2} \right) \int_{Gu + H}^{u + Gu + H} \exp\left( -\frac{Tv_1^2}{2\sigma^2} \right)\, dv_1\,du\\
     &= \frac{V}{2 \pi \sigma^2} \int_{0}^{1} \exp\left( -\frac{Ju^2 + Ku + L}{2\sigma^2} \right) \int_{\frac{\sqrt{T}}{\sqrt{2} \sigma}(Gu + H)}^{\frac{\sqrt{T}}{\sqrt{2} \sigma}(u + Gu + H)} \frac{\sqrt{2} \sigma}{\sqrt{T}} \exp\left( -v_2^2 \right)\, dv_2\,du\\
     &= \frac{V}{2 \pi \sigma^2} \cdot \frac{\sqrt{2} \sigma}{\sqrt{T}} \cdot \frac{\sqrt{\pi}}{2}  \int_{0}^{1} \exp\left( -\frac{Ju^2 + Ku + L}{2\sigma^2} \right) \int_{\frac{\sqrt{T}}{\sqrt{2} \sigma}(Gu + H)}^{\frac{\sqrt{T}}{\sqrt{2} \sigma}(u + Gu + H)} \frac{2}{\sqrt{\pi}} \exp\left( -v_2^2 \right)\, dv_2\,du.
-\end{align*}
+\end{aligned}
 $$
 
 Then we appeal to the $\text{erf}$ function which has definition $$\text{erf}(z) = \frac{2}{\sqrt{\pi}}\int_{0}^{z} \exp\left( -t^2 \right)\, dt.$$
@@ -203,9 +203,9 @@ and processed to compute the value of $P(R_i)$, the probability of landing on a 
 
 Finally we can get
 $$
-\begin{align*}
+\begin{aligned}
 \mathbb{E}[S(\mathbf{p}, \sigma)] &= \sum_{i=1}^{N} v_i \cdot P(R_i).\\
-\end{align*}
+\end{aligned}
 $$
 
 ## Implementation of Model
@@ -333,38 +333,38 @@ Suppose that we took $n$ separate shots independantly $(X_1, Y_1), (X_2, Y_2), .
 The likelihood function for $\sigma$ based on these throws is given by
 
 $$
-\begin{align*}
+\begin{aligned}
 L(\sigma) &= \prod_{i=1}^{n} f_{\sigma}(X_i, Y_i) \text{ where $f_{\sigma}$ is the pdf,}\\
   &= \prod_{i=1}^{n} \frac{1}{2 \pi \sigma^2} \exp \left( - \frac{|\begin{pmatrix} X_i \\ Y_i \end{pmatrix} - \begin{pmatrix} 0 \\ 0 \end{pmatrix}|}{2 \sigma^2} \right)\\
   &= \prod_{i=1}^{n} \frac{1}{2 \pi \sigma^2} \exp \left( - \frac{X_i^2 + Y_i^2}{2 \sigma^2} \right).
-\end{align*}
+\end{aligned}
 $$
 
 We seek to find a value of $\sigma$ that maximises this expression. Note that maximising this is equivalent to maximising the log likelihood $l(\sigma)$ which is given by
 
 $$
-\begin{align*}
+\begin{aligned}
 l(\sigma) &= \log \left( \prod_{i=1}^{n} \frac{1}{2 \pi \sigma^2} \exp \left( - \frac{X_i^2 + Y_i^2}{2 \sigma^2} \right)\right)\\
 &= \sum_{i=1}^n \log \left( \frac{1}{2 \pi \sigma^2} \exp \left( - \frac{X_i^2 + Y_i^2}{2 \sigma^2} \right)\right)\\
 &= \sum_{i=1}^n \left(-\frac{X_i^2+Y_i^2}{2 \sigma^2} - \log \left(2 \pi \sigma^2 \right) \right).
-\end{align*}
+\end{aligned}
 $$
 
 Then taking the derivative of this expression with respect to $\sigma$ to find the maximum we get
 $$
-\begin{align*}
+\begin{aligned}
 \frac{d}{dx}l(\sigma) &= \sum_{i=1}^n \left(-\frac{X_i^2+Y_i^2}{\sigma^3} - \frac{2}{\sigma} \right) \\
 &= \frac{2n}{\sigma} - \frac{1}{\sigma^3}\sum_{i=1}^n (X_i^2 + Y_i^2).
-\end{align*}
+\end{aligned}
 $$
 
 Then setting $\frac{d}{dx}l(\sigma) = 0$ we obtain
 
 $$
-\begin{align*}
+\begin{aligned}
 \sigma_{MLE} &= \sqrt{\frac{1}{2n} \sum_{i=1}^n (X_i^2 + Y_i^2)} \\
 &= \sqrt{\frac{1}{2n} \sum_{i=1}^n D_i^2} \text{ }\\
-\end{align*}
+\end{aligned}
 $$
 
 where $D_i$ is the distance of the $i$'th throw from the center.
