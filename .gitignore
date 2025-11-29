@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Virtual environments
+myenv/
+env/
+venv/
+.venv/
+
+# IDE / System
+.DS_Store
+.vscode/
+.idea/
+
+# Compiled binaries
+get_triangles
+*.o
+*.out
+
+# Generated output
+output/
+
+# Jupyter notebook metadata
+*.ipynb_checkpoints
+
+# Large data files (if any)
+*.csv
+!max_exp_val_over_sds.csv
